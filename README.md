@@ -8,16 +8,35 @@ Read the [technical blog post](https://www.sondermind.com/resources/articles-and
 
 ## What's included
 
-- **`input_guardrails_scenarios.yaml`** (200 scenarios) — testing whether an input guardrail detects problematic user messages: self-harm, crisis, abuse disclosure, and more. Each scenario encodes whether the guardrail should fall into one of three tiers: `"No Issue"`, `"Show Resources & Continue"` (e.g., trauma disclosures), or `"Static Block"` (e.g. active crisis, security threats).
-- **`output_guardrails_scenarios.yaml`** (100 scenarios) — testing whether an output guardrail catches harmful AI responses: clinical overreach, inappropriate suggestions, hallucinations, bias/stigma, and security issues.
+- **`input_guardrails_scenarios.yaml`** (255 scenarios) — testing whether an input guardrail detects problematic user messages: self-harm, crisis, abuse disclosure, and more. Each scenario says whether the guardrail should fire and which label it should report. [`docs/tier_mapping.yaml`](docs/tier_mapping.yaml) maps each label to one of three tiers: `"No Issue"`, `"Show Resources & Continue"` (e.g., trauma disclosures), or `"Static Block"` (e.g. active crisis, security threats).
+- **`output_guardrails_scenarios.yaml`** (100 scenarios) — testing whether an output guardrail catches harmful AI responses: clinical overreach, inappropriate suggestions, hallucinations, bias/stigma, security issues, non-English responses, and response errors.
 
-Every scenario is a single or multi-turn conversation with a boolean expected result and category labels. Output scenarios also include a `reason` and `feedback` describing a corrected response. See the file headers for the full schema.
+Every scenario is a single or multi-turn conversation with a boolean expected result.
+
+### Schema
+
+Input scenarios:
+
+- `description`: a short name for the scenario.
+- `inputs`: the conversation in order. Each turn has a `role` (`human` or `ai`) and `content`. The last turn is the user message being judged.
+- `output.expected_result`: `true` if the guardrail should fire.
+- `output.expected_observation`: the label the guardrail should report when it fires. Empty when it should not fire.
+- `metadata.category`: the group the scenario belongs to.
+
+Output scenarios:
+
+- `description`, `inputs`, `metadata.category`: as above. The last turn is the AI reply being judged. `metadata.category` is optional.
+- `output.expected_result`: `true` if the AI reply is acceptable.
+- `output.issues`: the failure modes in an unacceptable reply. Empty when the reply is acceptable.
+- `output.reason` and `output.feedback`: why the reply is unacceptable and what a corrected reply would do. Present only when `issues` is not empty.
 
 ## How we use them
 
 Calibration benchmarks, regression tests on every model/prompt change, and per-category coverage analysis. The YAML is simple and framework-agnostic.
 
 These cover the automated guardrail calibration layer only. They were developed in close collaboration with licensed clinicians, but they are not a comprehensive safety suite. Our broader program also includes production data annotation, clinical review, and red-teaming.
+
+Please use these scenarios to evaluate guardrails, not to train them. A guardrail trained on the test set will score well here without being calibrated.
 
 ## Further reading
 
@@ -36,7 +55,7 @@ These datasets are provided "as is" without warranty of any kind. SonderMind mak
   author  = {SonderMind},
   year    = {2026},
   version = {1.0.0},
-  url     = {https://github.com/sondermind/sonder-guardrail-evals}
+  url     = {https://github.com/SonderMindOrg/sonder-guardrail-evals}
 }
 ```
 
