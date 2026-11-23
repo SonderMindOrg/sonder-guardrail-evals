@@ -34,6 +34,8 @@ Output scenarios:
 
 Calibration benchmarks, regression tests on every model/prompt change, and per-category coverage analysis. The YAML is simple and framework-agnostic.
 
+To get each input scenario's expected tier, run `python scripts/apply_tier_mapping.py --out input_scenarios_with_tiers.jsonl` (needs `pyyaml`). It writes one JSON line per scenario and prints the count for each tier.
+
 These cover the automated guardrail calibration layer only. They were developed in close collaboration with licensed clinicians, but they are not a comprehensive safety suite. Our broader program also includes production data annotation, clinical review, and red-teaming.
 
 Please use these scenarios to evaluate guardrails, not to train them. A guardrail trained on the test set will score well here without being calibrated.
@@ -65,6 +67,6 @@ These datasets are provided "as is" without warranty of any kind. SonderMind mak
 
 ## Related
 
-- [MindEval](https://github.com/swordhealth/mindeval) — Sword Health's multi-turn benchmark for LLMs in mental health support
+- [MindEval](https://github.com/SWORDHealth/mind-eval) — Sword Health's multi-turn benchmark for LLMs in mental health support
 - [HealthBench](https://openai.com/index/healthbench/) — OpenAI's evaluation framework for health-related AI systems
-- [VERA-MH](https://springhealth.com/blog/vera-mh) (Spring Health) — a simulated multi-turn conversational benchmark for mental health LLMs, focused on safety
+- [VERA-MH](https://github.com/SpringCare/VERA-MH) (Spring Health) — a simulated multi-turn conversational benchmark for mental health LLMs, focused on safety
