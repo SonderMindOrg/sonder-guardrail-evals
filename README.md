@@ -43,6 +43,10 @@ Please use these scenarios to evaluate guardrails, not to train them. A guardrai
 - [Why we're sharing the safety tests behind Sonder](https://www.sondermind.com/resources/articles-and-content/why-were-sharing-the-safety-tests-behind-sonder-mind-s-ai-mental-health-companion-sonder/)
 - [Open-sourcing SonderMind's guardrail calibration datasets](https://www.sondermind.com/resources/articles-and-content/open-sourcing-sonder-mind-s-guardrail-calibration-datasets/)
 
+## License
+
+The datasets are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You can use, share, and adapt them as long as you credit SonderMind. Scripts are licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See [`LICENSE`](LICENSE) for the full text. The request above not to train on the scenarios is a request, not a license term.
+
 ## Disclaimer
 
 These datasets are provided "as is" without warranty of any kind. SonderMind makes no representations regarding their suitability for any particular use. They are a starting point for safety calibration, not a complete safety solution. Use is at your own risk and is not a substitute for independent safety testing, clinical review, or professional judgment.
